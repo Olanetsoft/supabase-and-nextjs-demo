@@ -182,7 +182,7 @@ export default function Home() {
                     <th className="bg-blue-400 border text-left px-14 py-4">
                       Start Date
                     </th>
-                    <th className="bg-blue-400 border text-left px-14 py-4">
+                    <th className="bg-blue-400 border text-left px-16 py-4">
                       End Date
                     </th>
 
@@ -190,7 +190,7 @@ export default function Home() {
                       Action
                     </th>
                   </tr>
-                  {task ? (
+                  {task &&
                     tasks.map((task, index) => (
                       <tr key={task.id}>
                         <td className="border px-4 py-4">{index + 1}</td>
@@ -209,10 +209,7 @@ export default function Home() {
                           </button>
                         </td>
                       </tr>
-                    ))
-                  ) : (
-                    <h1>No Pending Task!</h1>
-                  )}
+                    ))}
                 </tbody>
               </table>
             </div>
