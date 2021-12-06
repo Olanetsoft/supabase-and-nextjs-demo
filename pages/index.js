@@ -3,6 +3,7 @@ import Head from "next/head";
 import { supabase } from "../client";
 
 export default function Home() {
+  const [loading, setLoading] = useState(true);
   const [tasks, setTasks] = useState([]);
   const [task, setTask] = useState({
     Name: "",
@@ -16,6 +17,7 @@ export default function Home() {
   async function getTasks() {
     const { data } = await supabase.from("Task").select();
     setTasks(data);
+    setLoading(false);
   }
 
   async function addTask() {
@@ -44,25 +46,25 @@ export default function Home() {
     getTasks();
   }
 
-  async function updateTask(id) {
-    await supabase
-      .from("Task")
-      .update([
-        {
-          Name,
-          Activity,
-          StartDate,
-          EndDate,
-        },
-      ])
-      .eq("id", id);
-    getTasks();
-  }
-
   useEffect(() => {
     getTasks();
   }, []);
 
+  // If Loading
+  if (loading)
+    return (
+      <div className="flex justify-center items-center">
+        <div
+          className="
+      animate-spin
+      rounded-full
+      h-32
+      w-32
+      border-t-2 border-b-2 border-blue-500 mt-36
+    "
+        ></div>
+      </div>
+    );
   return (
     <div className="flex flex-col items-center justify-center py-2">
       <div>
